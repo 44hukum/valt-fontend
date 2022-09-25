@@ -1,10 +1,17 @@
 <template>
-  <h1>Hello World</h1>
+  <navbar></navbar>
+  <ideas></ideas>
 </template>
 
 <script>
-export default {
+import Navbar from "../components/Navbar.vue";
+import Ideas from "../components/Ideas/Ideas.vue";
 
+export default {
+  components: {
+    Navbar,
+    Ideas
+  }
 }
 </script>
 
