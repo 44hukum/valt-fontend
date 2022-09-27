@@ -26,7 +26,7 @@ export default {
                 .get("http://localhost:3000/ideas")
                 .then((response) => {
                     this.ideas = response.data;
-                })
+                }).catch(err=> console.log(err))
         }
     }
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <img src="" alt="logo">
+    <img src="../assets/idea.png" alt="logo" width="400" >
     <div class="row">
         <div class="col-8">
             <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll">
