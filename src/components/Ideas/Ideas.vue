@@ -1,11 +1,15 @@
 <template>
-  <div class="container d-flex" style="justify-content: center;">
-    <template v-for="idea in ideas" :key="idea.id">
-        <a-card :title="idea.title" style="width: 300px; margin: 0 10px;">
-            <p>{{ idea.body }}</p>
-        </a-card>
-    </template>
-  </div>
+    <div class="row">
+        <div class="col" v-for="idea in ideas" :key="idea.id">
+            <div class="card" style="width: 22rem; margin-top: 15px;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ idea.title }}</h5>
+                    <p class="card-text">{{ idea.body }}</p>
+                    <i class="fa-regular fa-thumbs-up" style="cursor: pointer; margin: 10px 0 0 10px"></i>    
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>

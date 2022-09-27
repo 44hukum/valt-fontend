@@ -6,7 +6,7 @@
 import { RouterLink, RouterView } from 'vue-router'
 </script>
 
-<style scoped>
+<style>
 * {
   margin: 0;
 }

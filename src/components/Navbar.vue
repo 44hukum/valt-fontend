@@ -1,7 +1,7 @@
 <template>
-  <div class="container">
-    <img src="../assets/idea.png" alt="logo" width="400" >
-    <div class="row">
+  <div>
+    <img src="../assets/idea.png" alt="logo" style="width: 120px; margin-left: -10px" >
+    <div class="row" style="margin-top: 30px">
         <div class="col-8">
             <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll">
                 <li class="d-flex">

@@ -1,6 +1,8 @@
 <template>
-  <navbar></navbar>
-  <ideas></ideas>
+  <div class="container">
+    <navbar></navbar>
+    <ideas></ideas>
+  </div>
 </template>
 
 <script>
