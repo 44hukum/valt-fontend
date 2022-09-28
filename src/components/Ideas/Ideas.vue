@@ -11,9 +11,7 @@
         </div>
     </div>
 </template>
-learn row col in bootstrap
-cards -> make responsive
-post idea feature
+
 <script>
 import axios from "axios";
 

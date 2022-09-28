@@ -12,8 +12,8 @@ import Ideas from "../components/Ideas/Ideas.vue";
 export default {
   components: {
     Navbar,
-    Ideas
-  }
+    Ideas,
+  },
 }
 </script>
 

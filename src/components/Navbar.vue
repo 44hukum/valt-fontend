@@ -18,11 +18,80 @@
         </div>
     </div>
   </div>
+  <a-collapse v-model:activeKey="activeKey" :bordered="false">
+    <template #expandIcon="{ isActive }">
+      <caret-right-outlined :rotate="isActive ? 90 : 0" />
+    </template>
+    <a-collapse-panel key="1" header="Post your idea" :style="customStyle">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                    <label for="title">Title</label>
+                    <input type="text" class="form-control" v-model="formData.title">
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                    <label for="description">Description</label>
+                    <textarea id="description" cols="30" rows="5" class="form-control" v-model="formData.description"></textarea>
+                </div>
+            </div>
+            <a-button type="primary submit" class="float-end my-2" @click="postIdea">Post</a-button>
+        </div>
+    </a-collapse-panel>
+  </a-collapse>
 </template>
 
 <script>
-export default {
+import axios from "axios";
+import { ref } from '@vue/reactivity';
+import { CaretRightOutlined } from '@ant-design/icons-vue';
+import useVuelidate from "@vuelidate/core";
+import { required } from "@vuelidate/validators";
 
+export default {
+    components: {
+        CaretRightOutlined
+    },
+    setup() {
+        const activeKey = ref(['0']);
+        const customStyle = 'background: #f7f7f7;border-radius: 4px;margin-bottom: 24px;border: 0;overflow: hidden';
+        
+        const formData = ref({
+            title: "",
+            description: ""
+        });
+
+        const rules = {
+            title: { required },
+            description: { required }
+        }
+
+        const v$ = useVuelidate(rules, formData);
+
+        return {
+            activeKey,
+            customStyle,
+            formData,
+            rules,
+            v$
+        }
+    },
+    data() {
+        return {
+            titles: ""
+        }
+    },
+    methods: {
+        postIdea() {
+            axios
+                .post("http://localhost:3000/ideas", {
+                    title: this.title,
+                    body: this.description
+                })
+                .then((response) => {
+                    this.activeKey = 0;  
+                })
+        }
+    }
 }
 </script>
 
