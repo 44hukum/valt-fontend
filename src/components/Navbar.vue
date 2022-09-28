@@ -28,10 +28,14 @@
                 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                     <label for="title">Title</label>
                     <input type="text" class="form-control" v-model="formData.title">
+                    <span v-for="error in v$.title.$errors" :key="error.$uid" class="error">{{ error.$property }} is required</span>
+                    <label for="image" class="my-10">Image</label>
+                    <input type="file" class="form-control">
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
                     <label for="description">Description</label>
                     <textarea id="description" cols="30" rows="5" class="form-control" v-model="formData.description"></textarea>
+                    <span v-for="error in v$.description.$errors" :key="error.$uid" class="error">{{ error.$property }} is required</span>
                 </div>
             </div>
             <a-button type="primary submit" class="float-end my-2" @click="postIdea">Post</a-button>
@@ -54,7 +58,7 @@ export default {
     setup() {
         const activeKey = ref(['0']);
         const customStyle = 'background: #f7f7f7;border-radius: 4px;margin-bottom: 24px;border: 0;overflow: hidden';
-        
+
         const formData = ref({
             title: "",
             description: ""
@@ -63,38 +67,38 @@ export default {
         const rules = {
             title: { required },
             description: { required }
-        }
+        };
 
         const v$ = useVuelidate(rules, formData);
+
+        const postIdea = async () => {
+            const result = await v$.value.$validate();
+            if(result) {
+                axios.post("http://localhost:3000/ideas", {
+                    title: formData.value.title,
+                    body: formData.value.description
+                })
+                .then((response) => {
+                    activeKey.value = 0;
+                })
+            }
+        };
 
         return {
             activeKey,
             customStyle,
             formData,
             rules,
-            v$
+            v$,
+            postIdea,
         }
     },
-    data() {
-        return {
-            titles: ""
-        }
-    },
-    methods: {
-        postIdea() {
-            axios
-                .post("http://localhost:3000/ideas", {
-                    title: this.title,
-                    body: this.description
-                })
-                .then((response) => {
-                    this.activeKey = 0;  
-                })
-        }
-    }
 }
 </script>
 
-<style>
-
+<style scoped>
+    .error {
+        font-size: 11px;
+        color: red;
+    }
 </style>

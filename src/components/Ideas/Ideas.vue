@@ -13,24 +13,16 @@
 </template>
 
 <script>
-import axios from "axios";
+import getIdeas from "../composables/getIdeas";
 
 export default {
-    data() {
+    setup() {
+        const { ideas, loadIdeas } = getIdeas();
+
+        loadIdeas();
+        
         return {
-           ideas: [] 
-        }
-    },
-    mounted() {
-        this.getIdeas();
-    },
-    methods: {
-        getIdeas() {
-            axios
-                .get("http://localhost:3000/ideas")
-                .then((response) => {
-                    this.ideas = response.data;
-                }).catch(err=> console.log(err))
+            ideas,
         }
     }
 }
