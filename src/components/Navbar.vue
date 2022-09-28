@@ -29,8 +29,9 @@
                     <label for="title">Title</label>
                     <input type="text" class="form-control" v-model="formData.title">
                     <span v-for="error in v$.title.$errors" :key="error.$uid" class="error">{{ error.$property }} is required</span>
+                    <br>
                     <label for="image" class="my-10">Image</label>
-                    <input type="file" class="form-control">
+                    <input type="file" class="form-control" @change="onFileSelected">
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
                     <label for="description">Description</label>
@@ -61,7 +62,8 @@ export default {
 
         const formData = ref({
             title: "",
-            description: ""
+            description: "",
+            selectedFile: null
         });
 
         const rules = {
@@ -72,17 +74,25 @@ export default {
         const v$ = useVuelidate(rules, formData);
 
         const postIdea = async () => {
+            const fd = new FormData();
+            // const fdd = fd.set("image", formData.selectedFile);
+            // console.log(fdd);
+            fd.append("title", formData.value.title);
+            fd.append("body", formData.value.description);
+            fd.append("image", formData.value.selectedFile);
             const result = await v$.value.$validate();
             if(result) {
-                axios.post("http://localhost:3000/ideas", {
-                    title: formData.value.title,
-                    body: formData.value.description
-                })
+                axios.post("http://localhost:3000/ideas", fd)
                 .then((response) => {
                     activeKey.value = 0;
+                    console.log(response)
                 })
             }
         };
+
+        const onFileSelected = (event) => {
+            formData.value.selectedFile = event.target.files[0];
+        }
 
         return {
             activeKey,
@@ -91,6 +101,7 @@ export default {
             rules,
             v$,
             postIdea,
+            onFileSelected
         }
     },
 }
