@@ -74,18 +74,22 @@ export default {
         const v$ = useVuelidate(rules, formData);
 
         const postIdea = async () => {
-            const fd = new FormData();
-            // const fdd = fd.set("image", formData.selectedFile);
-            // console.log(fdd);
+            var fd = new FormData();
             fd.append("title", formData.value.title);
             fd.append("body", formData.value.description);
             fd.append("image", formData.value.selectedFile);
             const result = await v$.value.$validate();
             if(result) {
-                axios.post("http://localhost:3000/ideas", fd)
+                axios.post("http://localhost:3000/ideas", {
+                    "title": formData.value.title,
+                    "body": formData.value.description
+                })
+                // axios.post("http://localhost:3000/ideas", fd, {
+                //     'Content-Type': 'multipart/form-data'
+                // })
                 .then((response) => {
                     activeKey.value = 0;
-                    console.log(response)
+                    console.log(response);
                 })
             }
         };
