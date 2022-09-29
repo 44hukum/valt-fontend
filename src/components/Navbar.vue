@@ -26,16 +26,14 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-                    <label for="title">Title</label>
-                    <input type="text" class="form-control" v-model="formData.title">
+                    <a-input placeholder="Title" v-model="formData.title" />
                     <span v-for="error in v$.title.$errors" :key="error.$uid" class="error">{{ error.$property }} is required</span>
                     <br>
                     <label for="image" class="my-10">Image</label>
                     <input type="file" class="form-control" @change="onFileSelected">
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-                    <label for="description">Description</label>
-                    <textarea id="description" cols="30" rows="5" class="form-control" v-model="formData.description"></textarea>
+                    <a-textarea placeholder="Description" v-model="formData.description" cols="30" rows="5" />
                     <span v-for="error in v$.description.$errors" :key="error.$uid" class="error">{{ error.$property }} is required</span>
                 </div>
             </div>
@@ -43,6 +41,9 @@
         </div>
     </a-collapse-panel>
   </a-collapse>
+  <!-- issue, image button -ref-
+  input, textarea -> ant design vue (natra vane shadow-off)
+  card-body certain character. (show more button)  -->
 </template>
 
 <script>
@@ -74,19 +75,19 @@ export default {
         const v$ = useVuelidate(rules, formData);
 
         const postIdea = async () => {
-            var fd = new FormData();
+            let fd = new FormData();
             fd.append("title", formData.value.title);
             fd.append("body", formData.value.description);
             fd.append("image", formData.value.selectedFile);
             const result = await v$.value.$validate();
             if(result) {
-                axios.post("http://localhost:3000/ideas", {
-                    "title": formData.value.title,
-                    "body": formData.value.description
-                })
-                // axios.post("http://localhost:3000/ideas", fd, {
-                //     'Content-Type': 'multipart/form-data'
+                // axios.post("http://localhost:3000/ideas", {
+                //     "title": formData.value.title,
+                //     "body": formData.value.description
                 // })
+                axios.post("http://localhost:3000/ideas", fd, {
+                    'Content-Type': 'multipart/form-data'
+                })
                 .then((response) => {
                     activeKey.value = 0;
                     console.log(response);
