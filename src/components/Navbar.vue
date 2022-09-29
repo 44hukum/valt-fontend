@@ -7,6 +7,8 @@
                 <li class="d-flex">
                     <router-link :to="{}" class="nav-link">Recent</router-link>
                     <router-link :to="{}" class="nav-link" style="margin-left: 15px;">Popular</router-link>
+                    <router-link :to="{}" class="nav-link" style="margin-left: 15px;">Problems</router-link>
+
                 </li>
             </ul>
         </div>
