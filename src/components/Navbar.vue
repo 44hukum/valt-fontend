@@ -45,7 +45,6 @@
         </div>
     </a-collapse-panel>
   </a-collapse>
-  <!-- card-body certain character. (show more button)  -->
 </template>
 
 <script>
