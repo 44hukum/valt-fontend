@@ -2,7 +2,7 @@
   <div>
     <img src="../assets/idea.png" alt="logo" style="width: 120px; margin-left: -10px" >
     <div class="row" style="margin-top: 30px">
-        <div class="col-8">
+        <div class="col-6">
             <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll">
                 <li class="d-flex">
                     <router-link :to="{}" class="nav-link">Recent</router-link>
@@ -10,7 +10,7 @@
                 </li>
             </ul>
         </div>
-        <div class="col-4">
+        <div class="col-6">
             <form class="d-flex">
                 <a-input placeholder="Search..." class="me-2" />
                 <i class="fa fa-search" style="margin-top: 7px; cursor: pointer;"></i>
