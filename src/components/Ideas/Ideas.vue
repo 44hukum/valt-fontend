@@ -1,7 +1,7 @@
 <template>
     <div class="row">
-        <div class="col" v-for="idea in ideas" :key="idea.id">
-            <div class="card" style="width: 22rem; margin-top: 15px;">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" v-for="idea in ideas" :key="idea.id">
+            <div class="card" style="margin-top: 15px;">
                 <div class="card-body">
                     <h5 class="card-title">{{ idea.title }}</h5>
                     <p class="card-text">{{ idea.body.substring(0, 100) + "...." }}</p>
