@@ -1,6 +1,8 @@
 <template>
   <div>
-    <img src="../assets/idea.png" alt="logo" style="width: 120px; margin-left: -10px" >
+    <router-link :to="{ name: 'Home' }">
+        <img src="../assets/idea.png" alt="logo" style="width: 120px; margin-left: -10px" >
+    </router-link>
     <div class="row" style="margin-top: 30px">
         <div class="col-8">
             <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll">
@@ -34,8 +36,10 @@
                     </div>
                     <div style="margin: 20px 0">
                         <input type="file" @change="onFileSelected" ref="uploadImage" style="display: none;">
-                        <i class="fa-solid fa-image" style="height: 20px;"></i>
-                        <label @click="$refs.uploadImage.click()" style="margin: 0 5px; background-color: #08979c; color: #ffffff; padding: 5px; cursor: pointer;">Upload Image</label>
+                        <div @click="$refs.uploadImage.click()" class="upload-img">
+                            <img src="../assets/imageIcon.png" alt="Image" style="width: 10%;">
+                            <label style="cursor: pointer;">Upload Image</label>
+                        </div> 
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
@@ -123,5 +127,32 @@ export default {
     .error {
         font-size: 11px;
         color: red;
+    }
+
+    .input-field {
+        width: 100%;
+        border: 1px solid #D3D3D3;
+        padding: 2px 7px;
+    }
+
+    .input-field:hover {
+        border: 1px solid #40a9ff;
+    }
+
+    .input-field:focus {
+        outline: none;
+        -webkit-box-shadow: 0px 0px 4px #40a9ff;
+       -moz-box-shadow: 0px 0px 4px #40a9ff;
+            box-shadow: 0px 0px 4px #40a9ff;
+    }
+
+    .upload-img {
+        cursor: pointer;
+        padding: 2px;
+    }
+
+    .upload-img:hover {
+        background-color: #d5d5d5d6;
+        border-radius: 2px;
     }
 </style>
