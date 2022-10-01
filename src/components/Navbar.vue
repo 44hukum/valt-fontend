@@ -33,7 +33,7 @@
                     <span v-for="error in v$.title.$errors" :key="error.$uid" class="error">{{ error.$property }} is required</span>
                     <br>
                     <label for="image" class="my-10">Image</label>
-                    <input type="file" class="form-control" @change="onFileSelected">
+                    <input type="file" class="form-control" @submit="onFileSelected">
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
                     <label for="description">Description</label>
@@ -70,7 +70,8 @@ export default {
 
         const rules = {
             title: { required },
-            description: { required }
+            description: { required },
+          
         };
 
         const v$ = useVuelidate(rules, formData);
@@ -81,7 +82,9 @@ export default {
             fd.append("body", formData.value.description);
             fd.append("image", formData.value.selectedFile);
             const result = await v$.value.$validate();
+                
             if(result) {
+                console.log(result);
                 axios.post("http://localhost:3000/ideas", {
                     "title": formData.value.title,
                     "body": formData.value.description
@@ -98,6 +101,7 @@ export default {
 
         const onFileSelected = (event) => {
             formData.value.selectedFile = event.target.files[0];
+            console.log(formData)
         }
 
         return {
