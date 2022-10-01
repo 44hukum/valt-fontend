@@ -28,16 +28,18 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-                    <label for="title">Title</label>
-                    <input type="text" class="form-control" v-model="formData.title">
-                    <span v-for="error in v$.title.$errors" :key="error.$uid" class="error">{{ error.$property }} is required</span>
-                    <br>
-                    <label for="image" class="my-10">Image</label>
-                    <input type="file" class="form-control" @submit="onFileSelected">
+                    <div>
+                        <input type="text" placeholder="Title" v-model="formData.title" class="input-field">
+                        <span v-for="error in v$.title.$errors" :key="error.$uid" class="error">{{ error.$property }} is required</span>
+                    </div>
+                    <div style="margin: 20px 0">
+                        <input type="file" @change="onFileSelected" ref="uploadImage" style="display: none;">
+                        <i class="fa-solid fa-image" style="height: 20px;"></i>
+                        <label @click="$refs.uploadImage.click()" style="margin: 0 5px; background-color: #08979c; color: #ffffff; padding: 5px; cursor: pointer;">Upload Image</label>
+                    </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-                    <label for="description">Description</label>
-                    <textarea id="description" cols="30" rows="5" class="form-control" v-model="formData.description"></textarea>
+                    <textarea cols="30" rows="5" placeholder="Description" v-model="formData.description" class="input-field"></textarea>
                     <span v-for="error in v$.description.$errors" :key="error.$uid" class="error">{{ error.$property }} is required</span>
                 </div>
             </div>
