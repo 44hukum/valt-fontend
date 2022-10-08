@@ -47,7 +47,7 @@
                     <span v-for="error in v$.description.$errors" :key="error.$uid" class="error">{{ error.$property }} is required</span>
                 </div>
             </div>
-            <a-button type="primary submit" class="float-end my-2" @click="postIdea">Post</a-button>
+            <a-button type="primary submit" class="float-end my-2" id="postIdea" @click="postIdea">Post</a-button>
         </div>
     </a-collapse-panel>
   </a-collapse>
@@ -90,7 +90,6 @@ export default {
             const result = await v$.value.$validate();
                 
             if(result) {
-                console.log(result);
                 axios.post("http://localhost:3000/ideas", {
                     "title": formData.value.title,
                     "body": formData.value.description
@@ -101,13 +100,22 @@ export default {
                 .then((response) => {
                     activeKey.value = 0;
                     console.log(response);
+                    ideas;
                 })
             }
         };
 
         const onFileSelected = (event) => {
             formData.value.selectedFile = event.target.files[0];
-            console.log(formData)
+        }
+
+        const ideas = ref([]);
+        const getIdeas = () => {
+            axios
+                .get("http://localhost:3000/ideas")
+                .then((response) => {
+                    ideas.value = response.data;
+                })
         }
 
         return {
@@ -117,7 +125,9 @@ export default {
             rules,
             v$,
             postIdea,
-            onFileSelected
+            onFileSelected,
+            ideas,
+            getIdeas
         }
     },
 }
